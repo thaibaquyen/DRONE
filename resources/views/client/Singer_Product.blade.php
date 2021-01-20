@@ -40,47 +40,47 @@
                     <div class="product_tab_button">    
                         <ul class="nav" role="tablist">
                             <li>
-                                <a class="active" data-toggle="tab" href="#p_tab1" role="tab" aria-controls="p_tab1" aria-selected="false"><img src="assets\img\product\product12.png" alt=""></a>
+                                <a class="active" data-toggle="tab" href="#p_tab1" role="tab" aria-controls="p_tab1" aria-selected="false"><img src="{{ asset('assets\img\product\product12.png') }}" alt=""></a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2" aria-selected="false"><img src="assets\img\product\product12_2.jpg" alt=""></a>
+                                <a data-toggle="tab" href="#p_tab2" role="tab" aria-controls="p_tab2" aria-selected="false"><img src="{{ asset('assets\img\product\product12_2.jpg') }}" alt=""></a>
                             </li>
                             <li>
-                                <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3" aria-selected="false"><img src="assets\img\product\product12_3.jpg" alt=""></a>
+                                <a data-toggle="tab" href="#p_tab3" role="tab" aria-controls="p_tab3" aria-selected="false"><img src="{{ asset('assets\img\product\product12_3.jpg') }}" alt=""></a>
                             </li>
                         </ul>
                     </div> 
                     <div class="tab-content produc_tab_c">
                         <div class="tab-pane fade show active" id="p_tab1" role="tabpanel">
                             <div class="modal_img">
-                                <a href="#"><img src="assets\img\product\product12.png" alt="product12"></a>
+                                <a href="#"><img src='{{ asset("assets/img/product/$data->hinhAnh") }}' alt="product12"></a>
                                 <div class="img_icone">
-                                    <img src="assets\img\cart\span-new.png" alt="span-new">
+                                    <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="span-new">
                                 </div>
                                 <div class="view_img">
-                                    <a class="large_view" href="assets\img\product\product12.png"><i class="fa fa-search-plus"></i></a>
+                                    <a class="large_view" href='{{ asset("assets/img/product/$data->hinhAnh") }}'><i class="fa fa-search-plus"></i></a>
                                 </div>    
                             </div>
                         </div>
                         <div class="tab-pane fade" id="p_tab2" role="tabpanel">
                             <div class="modal_img">
-                                <a href="#"><img src="assets\img\product\product12_2.jpg" alt="product12_2"></a>
+                                <a href="#"><img src="{{ asset('assets\img\product\product12_2.jpg') }}" alt="product12_2"></a>
                                 <div class="img_icone">
-                                    <img src="assets\img\cart\span-new.png" alt="">
+                                    <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
                                 </div>
                                 <div class="view_img">
-                                    <a class="large_view" href="assets\img\product\product12_2.jpg"><i class="fa fa-search-plus"></i></a>
+                                    <a class="large_view" href="{{ asset('assets\img\product\product12_2.jpg') }}"><i class="fa fa-search-plus"></i></a>
                                 </div>     
                             </div>
                         </div>
                         <div class="tab-pane fade" id="p_tab3" role="tabpanel">
                             <div class="modal_img">
-                                <a href="#"><img src="assets\img\product\product12_3.jpg" alt="product12_3"></a>
+                                <a href="#"><img src="{{ asset('assets\img\product\product12_3.jpg') }}" alt="product12_3"></a>
                                 <div class="img_icone">
-                                    <img src="assets\img\cart\span-new.png" alt="">
+                                    <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
                                 </div>
                                 <div class="view_img">
-                                    <a class="large_view" href="assets\img\product\product12_3.jpg"> <i class="fa fa-search-plus"></i></a>
+                                    <a class="large_view" href="{{ asset('assets\img\product\product12_3.jpg') }}"> <i class="fa fa-search-plus"></i></a>
                                 </div>     
                             </div>
                         </div>
@@ -89,14 +89,14 @@
             </div>
             <div class="col-lg-7 col-md-6">
                 <div class="product_d_right">
-                    <h1>Bộ bàn ghế ngoài trời OEM</h1>
+                    <h1>{{ $data->tenSp }}</h1>
                       <div class="product_ratting mb-10"></div>
-                      <h6>Mã sản phẩm: BG03</h6>
+                      <h6>Mã sản phẩm: {{ $data->maSp }}</h6>
                       <div class="product_desc">
-                          <p>Bộ bàn ghế ban công, sân vườn, phòng khách hiện đại, kích thước khá nhỏ gọn, dễ dàng di chuyển và bày trí với kiểu dáng độc đáo lạ mắt chắc chắn sẽ đem lại cho bạn một không gian đẹp, sang trọng.</p>
+                          <p>{{ $data->moTa1 }}</p>
                       </div>
                     <div class="content_price mb-15">
-                        <span>2.999.000đ</span>
+                        <span>{{ number_format($data->gia, 2) }}</span>
                     </div>
                     <div class="box_quantity mb-20">                                     
                         <form action="#">
@@ -120,7 +120,7 @@
                     </div>                 
 
                     <div class="product_stock mb-20">
-                        <p>5 sản phẩm</p>
+                        <p>{{ $data->soLuong }} sản phẩm</p>
                         <span> Trong kho </span>
                     </div>
                 </div>

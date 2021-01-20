@@ -34,55 +34,21 @@
                   <div class="sidebar_widget catrgorie mb-35">
                       <h3>Phân loại</h3>
                       <ul>
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i>Bàn ghế</a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i>Sofa</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i>Bàn trà</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i>Bàn học & làm việc</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i>Bàn trang điểm</a></li>
-                              </ul>     
-                          </li>
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i> Tủ kệ</a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i>Kệ đứng</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Kệ treo tường</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Tủ đựng đồ</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Tủ quần áo</a></li>
-                              </ul> 
-                          </li>
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i> Đèn</a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Đèn trần</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Đèn bàn</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Đèn đứng</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Đèn treo tường</a></li>
-                              </ul> 
-                          </li>
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i> Tranh </a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Tranh sơn dầu</a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Tranh in vải canvas</a></li>
-                              </ul>    
-                          </li>                        
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i> Đồng hồ </a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Đồng hồ treo tường </a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Đồng hồ để bàn </a></li>
-                              </ul>
-                          </li>
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i> Gối sofa & Thảm</a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Gối sofa </a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Thảm </a></li>
-                              </ul>
-                          </li>
-                          <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i> Đồ trang trí khác</a>
-                              <ul class="categorie_sub">
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Lịch </a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Bình hoa </a></li>
-                                  <li><a href="#"><i class="fa fa-caret-right"></i> Chậu cây mini </a></li>
-                              </ul>
-                          </li>
+                      @foreach($danhmuc as $valu)
+                      <li class="has-sub add"><a href="#"><i class="fa fa-caret-right"></i>{{ $valu->name }}</a>
+                        <ul class="categorie_sub">
+                            @foreach($menu as $value1)
+                                @foreach($value1 as $key => $value)
+                                    @if($key == $valu->id)
+                                        @foreach($value as $k => $values)
+                                            <li><a href="#"><i class="fa fa-caret-right"></i>{{ $values->tendanhmuc }}</a></li>
+                                        @endforeach
+                                    @endif
+                                @endforeach
+                            @endforeach
+                        </ul> 
+                      </li>
+                      @endforeach
                       </ul>
                   </div>
                   <!--categorie menu end-->
@@ -138,121 +104,31 @@
                       </div>
                       <div class="row">
                           <div class="product_active owl-carousel">
+                            @foreach($datanew as $valu)
                               <div class="col-lg-3">
                                   <div class="single_product">
                                       <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product1.jpg') }}" alt="product1"></a> 
+                                          <a href='{{  URL::to("/singerProduct/$valu->maSp") }}'><img src='{{ asset("assets/img/product/$valu->hinhAnh") }}' alt="product1"></a> 
                                           <div class="img_icone">
                                               <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="span-new">
                                           </div>
                                           <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                              <a href="#"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
                                           </div>
                                       </div>
                                       <div class="product_content">
-                                          <span class="product_price">3.800.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Bộ bàn ghế hiện đại Mango</a></h3>
+                                          <span class="product_price">{{ number_format($valu->gia, 2) }}</span>
+                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">{{ $valu->tenSp }}</a></h3>
                                       </div>
                                       <div class="product_info">
                                           <ul>
                                               <li><a href="#" title=" Add to Wishlist ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
+                                              <li><a href="#" data-toggle="modal" masp="{{ $valu->maSp }}" class="detail_product" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
                                           </ul>
                                       </div>
                                   </div>
                               </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product2.jpg') }}" alt="product2"></a> 
-                                          <div class="hot_img">
-                                              <img src="{{ asset('assets\img\cart\span-hot.png') }}" alt="span-hot">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng </a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">425.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Đèn để bàn thân gỗ Luxury</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box2" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product3.jpg') }}" alt=""></a> 
-                                          <div class="img_icone">
-                                              <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">500.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Tủ đầu giường có khóa</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box3" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product4.jpg') }}" alt=""></a> 
-                                          <div class="hot_img">
-                                              <img src="{{ asset('assets\img\cart\span-hot.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">290.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Bộ 3 tranh trừu tượng</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box4" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product6.jpg') }}" alt=""></a> 
-                                          <div class="img_icone">
-                                              <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">435.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Thảm sàn tròn Scandivian</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box5" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
+                            @endforeach
                           </div> 
                       </div>       
                   </div> 
@@ -265,121 +141,31 @@
                       </div>
                       <div class="row">
                           <div class="product_active owl-carousel">
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product7.jpg') }}" alt=""></a> 
-                                          <div class="hot_img">
-                                              <img src="{{ asset('assets\img\cart\span-hot.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">550.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Đèn cây vòm Retro</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box6" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product8.jpg') }}" alt=""></a> 
-                                          <div class="img_icone">
-                                              <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">230.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Đồng hồ treo tường pastel</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box7" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product9.png') }}" alt=""></a> 
-                                          <div class="img_icone">
-                                              <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">180.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Kệ sách gỗ freestyle</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box8" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product10.jpg') }}" alt=""></a> 
-                                          <div class="hot_img">
-                                              <img src="{{ asset('assets\img\cart\span-hot.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">750.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Bộ bàn ghế làm việc Simple</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box9" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-lg-3">
-                                  <div class="single_product">
-                                      <div class="product_thumb">
-                                          <a href="{{  URL::to('/singerProduct') }}"><img src="{{ asset('assets\img\product\product11.jpg') }}" alt=""></a> 
-                                          <div class="img_icone">
-                                              <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="">
-                                          </div>
-                                          <div class="product_action">
-                                              <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                          </div>
-                                      </div>
-                                      <div class="product_content">
-                                          <span class="product_price">70.000đ</span>
-                                          <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">Tranh canvas hoa cỏ</a></h3>
-                                      </div>
-                                      <div class="product_info">
-                                          <ul>
-                                              <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
-                                              <li><a href="#" data-toggle="modal" data-target="#modal_box10" title="Quick view">Xem chi tiết</a></li>
-                                          </ul>
-                                      </div>
-                                  </div>
-                              </div>
+                          @foreach($datahot as $valu)
+                            <div class="col-lg-3">
+                                <div class="single_product">
+                                    <div class="product_thumb">
+                                        <a href='{{  URL::to("/singerProduct/$valu->maSp") }}'><img src='{{ asset("assets/img/product/$valu->hinhAnh") }}' alt=""></a> 
+                                        <div class="hot_img">
+                                            <img src="{{ asset('assets\img\cart\span-hot.png') }}" alt="">
+                                        </div>
+                                        <div class="product_action">
+                                            <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                        </div>
+                                    </div>
+                                    <div class="product_content">
+                                        <span class="product_price">{{ number_format($valu->gia, 2) }}</span>
+                                        <h3 class="product_title"><a href='{{  URL::to("/singerProduct/$valu->maSp") }}'>{{ $valu->tenSp }}</a></h3>
+                                    </div>
+                                    <div class="product_info">
+                                        <ul>
+                                            <li><a href="#" title=" Yêu thích ">Yêu thích</a></li>
+                                            <li><a href="#" class="detail_product" masp = "{{ $valu->maSp }}" data-toggle="modal" data-target="#modal_box" title="Quick view">Xem chi tiết</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
                           </div> 
                       </div> 
                   </div>     
@@ -411,5 +197,87 @@
           </div>  
       </div>
       @endsection
+      <div class="modal fade" id="modal_box" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="modal_body">
+                    <div class="container">
+                    <div class="row">
+    <div class="col-lg-5 col-md-5 col-sm-12">
+        <div class="modal_tab">  
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                    <div class="modal_tab_img">
+                        <a href="#"><img src="{{ asset('assets\img\product\product1.jpg') }}" alt="product1"></a>    
+                    </div>
+                </div>
+            </div>
+            <div class="modal_tab_button">    
+                <ul class="nav product_navactive" role="tablist">
+                    <li>
+                        <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="{{ asset('assets\img\cart\cart1.jpg') }}" alt=""></a>
+                    </li>
+                </ul>
+            </div>    
+        </div>  
+    </div> 
+    <div class="col-lg-7 col-md-7 col-sm-12">
+        <div class="modal_right">
+            <div class="modal_title mb-10">
+                <h2>Bộ bàn ghế hiện đại Mango</h2> 
+            </div>
+            <div class="modal_price mb-10">
+                <span class="new_price">3.800.000đ</span>
+            </div>
+            <div class="modal_content mb-10">
+                <p>Bộ bàn ghế sofa hiện đại, nhỏ gọn kiểu Nhật dành cho căn hộ nhỏ ban công Bắc Âu.</p>    
+            </div>
+            <div class="modal_size mb-15">
+                <h2>Chọn số lượng:</h2>
+            </div>
+            <div class="modal_add_to_cart mb-15">
+                <form action="#">
+                    <input min="0" max="100" step="2" value="1" type="number">
+                    <button type="submit">Thêm vào giỏ hàng</button>
+                </form>
+            </div>   
+            <div class="modal_description mb-15">
+                <h6>Mã sản phẩm: BG01</h6>
+                <ul>
+                    Sản phẩm gồm:                                          
+                    <li>01 x Bàn</li>
+                    <li>02 x Ghế</li>
+                </ul>
+            </div>      
+        </div>    
+    </div>    
+</div> 
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div> 
   </body>
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $(".detail_product").click(function(){
+            $.ajax({
+                url:"{{ URL::to('detail') }}", // đường dẫn khi gửi dữ liệu đi 'search' là tên route mình đặt bạn mở route lên xem là hiểu nó là cái j.
+                method:"GET", // phương thức gửi dữ liệu.
+                data:{ masp:$(this).attr("masp") },
+                success:function(data){ //dữ liệu nhận về
+                    $('.container').html(data); //nhận dữ liệu dạng html và gán vào cặp thẻ có id là countryList
+                }
+            });
+        });
+    })
+    </script> -->
 </html>

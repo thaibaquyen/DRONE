@@ -13,9 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', function () {
-    return view('client/Home');
-});
+// Route::get('/home', function () {
+//     return view('client/Home');
+// });
+
+route::get('/home','App\Http\Controllers\Home@getindex');
+
+route::get('/singerProduct/{masp}','App\Http\Controllers\Home@singerProduct');
+
+route::get('/detail','App\Http\Controllers\Home@detail');
 
 Route::get('/about', function () {
     return view('client/About');
@@ -33,9 +39,9 @@ Route::get('/contact', function () {
     return view('client/Contact');
 });
 
-Route::get('/singerProduct', function () {
-    return view('client/Singer_Product');
-});
+// Route::get('/singerProduct', function () {
+//     return view('client/Singer_Product');
+// });
 
 Route::get('/cart', function () {
     return view('client/Cart');
