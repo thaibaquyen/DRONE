@@ -6,6 +6,23 @@
       <title>DRONE | Decorate Home </title>
       <!-- Favicon -->
       <link rel="shortcut icon" type="image/x-icon" href="assets\img\favicon.png">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $(".detail_product").click(function(){
+                $.ajax({
+                    url:"{{ URL::to('detail') }}",
+                    method:"GET",
+                    data:{ masp:$(this).attr("masp") },
+                    success:function(data){     
+                        $('#detailme').html(data);
+                    }
+                });
+            });
+        })
+        </script>
       <style>
         .header_bottom nav > ul > li:first-child {
           background: #018576;
@@ -41,7 +58,7 @@
                                 @foreach($value1 as $key => $value)
                                     @if($key == $valu->id)
                                         @foreach($value as $k => $values)
-                                            <li><a href="#"><i class="fa fa-caret-right"></i>{{ $values->tendanhmuc }}</a></li>
+                                            <li><a href='{{  URL::to("/shop/$values->id") }}'><i class="fa fa-caret-right"></i>{{ $values->tendanhmuc }}</a></li>
                                         @endforeach
                                     @endif
                                 @endforeach
@@ -117,7 +134,7 @@
                                           </div>
                                       </div>
                                       <div class="product_content">
-                                          <span class="product_price">{{ number_format($valu->gia, 2) }}</span>
+                                          <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
                                           <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">{{ $valu->tenSp }}</a></h3>
                                       </div>
                                       <div class="product_info">
@@ -154,7 +171,7 @@
                                         </div>
                                     </div>
                                     <div class="product_content">
-                                        <span class="product_price">{{ number_format($valu->gia, 2) }}</span>
+                                        <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
                                         <h3 class="product_title"><a href='{{  URL::to("/singerProduct/$valu->maSp") }}'>{{ $valu->tenSp }}</a></h3>
                                     </div>
                                     <div class="product_info">
@@ -204,80 +221,61 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
                 <div class="modal_body">
-                    <div class="container">
-                    <div class="row">
-    <div class="col-lg-5 col-md-5 col-sm-12">
-        <div class="modal_tab">  
-            <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="tab1" role="tabpanel">
-                    <div class="modal_tab_img">
-                        <a href="#"><img src="{{ asset('assets\img\product\product1.jpg') }}" alt="product1"></a>    
-                    </div>
-                </div>
-            </div>
-            <div class="modal_tab_button">    
-                <ul class="nav product_navactive" role="tablist">
-                    <li>
-                        <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="{{ asset('assets\img\cart\cart1.jpg') }}" alt=""></a>
-                    </li>
-                </ul>
-            </div>    
-        </div>  
-    </div> 
-    <div class="col-lg-7 col-md-7 col-sm-12">
-        <div class="modal_right">
-            <div class="modal_title mb-10">
-                <h2>Bộ bàn ghế hiện đại Mango</h2> 
-            </div>
-            <div class="modal_price mb-10">
-                <span class="new_price">3.800.000đ</span>
-            </div>
-            <div class="modal_content mb-10">
-                <p>Bộ bàn ghế sofa hiện đại, nhỏ gọn kiểu Nhật dành cho căn hộ nhỏ ban công Bắc Âu.</p>    
-            </div>
-            <div class="modal_size mb-15">
-                <h2>Chọn số lượng:</h2>
-            </div>
-            <div class="modal_add_to_cart mb-15">
-                <form action="#">
-                    <input min="0" max="100" step="2" value="1" type="number">
-                    <button type="submit">Thêm vào giỏ hàng</button>
-                </form>
-            </div>   
-            <div class="modal_description mb-15">
-                <h6>Mã sản phẩm: BG01</h6>
-                <ul>
-                    Sản phẩm gồm:                                          
-                    <li>01 x Bàn</li>
-                    <li>02 x Ghế</li>
-                </ul>
-            </div>      
-        </div>    
-    </div>    
-</div> 
+                    <div id="detailme">
+                        <!-- <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-12">
+                                <div class="modal_tab">  
+                                    <div class="tab-content" id="pills-tabContent">
+                                        <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+                                            <div class="modal_tab_img">
+                                                <a href="#"><img src="{{ asset('assets\img\product\product1.jpg') }}" alt="product1"></a>    
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal_tab_button">    
+                                        <ul class="nav product_navactive" role="tablist">
+                                            <li>
+                                                <a class="nav-link active" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="{{ asset('assets\img\cart\cart1.jpg') }}" alt=""></a>
+                                            </li>
+                                        </ul>
+                                    </div>    
+                                </div>  
+                            </div> 
+                            <div class="col-lg-7 col-md-7 col-sm-12">
+                                <div class="modal_right">
+                                    <div class="modal_title mb-10">
+                                        <h2>Bộ bàn ghế hiện đại Mango</h2> 
+                                    </div>
+                                    <div class="modal_price mb-10">
+                                        <span class="new_price">3.800.000đ</span>
+                                    </div>
+                                    <div class="modal_content mb-10">
+                                        <p>Bộ bàn ghế sofa hiện đại, nhỏ gọn kiểu Nhật dành cho căn hộ nhỏ ban công Bắc Âu.</p>    
+                                    </div>
+                                    <div class="modal_size mb-15">
+                                        <h2>Chọn số lượng:</h2>
+                                    </div>
+                                    <div class="modal_add_to_cart mb-15">
+                                        <form action="#">
+                                            <input min="0" max="100" step="2" value="1" type="number">
+                                            <button type="submit">Thêm vào giỏ hàng</button>
+                                        </form>
+                                    </div>   
+                                    <div class="modal_description mb-15">
+                                        <h6>Mã sản phẩm: BG01</h6>
+                                        <ul>
+                                            Sản phẩm gồm:                                          
+                                            <li>01 x Bàn</li>
+                                            <li>02 x Ghế</li>
+                                        </ul>
+                                    </div>      
+                                </div>    
+                            </div>    
+                        </div>   -->
                     </div>
                 </div>    
             </div>
         </div>
     </div> 
   </body>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $(".detail_product").click(function(){
-            $.ajax({
-                url:"{{ URL::to('detail') }}", // đường dẫn khi gửi dữ liệu đi 'search' là tên route mình đặt bạn mở route lên xem là hiểu nó là cái j.
-                method:"GET", // phương thức gửi dữ liệu.
-                data:{ masp:$(this).attr("masp") },
-                success:function(data){ //dữ liệu nhận về
-                    $('.container').html(data); //nhận dữ liệu dạng html và gán vào cặp thẻ có id là countryList
-                }
-            });
-        });
-    })
-    </script> -->
 </html>

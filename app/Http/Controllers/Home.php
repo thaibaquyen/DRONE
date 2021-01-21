@@ -31,6 +31,6 @@ class Home extends Controller
     function detail(Request $request) {
         $masp = $request->masp;
         $data = sanpham::where('maSp', $masp)->first();
-        return view('client/Detail_Product',['data'=>$data]);
+        return view('client/Detail',['data'=>$data]);
     }
 }

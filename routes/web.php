@@ -23,13 +23,17 @@ route::get('/singerProduct/{masp}','App\Http\Controllers\Home@singerProduct');
 
 route::get('/detail','App\Http\Controllers\Home@detail');
 
+route::get('/shop','App\Http\Controllers\Shop@getindex');
+
+route::get('/shop/{id}','App\Http\Controllers\Shop@getindexsearch');
+
 Route::get('/about', function () {
     return view('client/About');
 });
 
-Route::get('/shop', function () {
-    return view('client/Shop');
-});
+// Route::get('/shop', function () {
+//     return view('client/Shop');
+// });
 
 Route::get('/blog', function () {
     return view('client/Blog');
