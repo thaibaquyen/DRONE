@@ -15,7 +15,59 @@
       <link rel="stylesheet" href="{{ asset('assets\css\bundle.css') }}">
       <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
       <link rel="stylesheet" href="{{ asset('assets\css\responsive.css') }}">
+      <link rel="stylesheet" href="{{ asset('assets\css\toast.css') }}">
+      
+      <script src="{{ asset('assets\js\toast.js') }}"></script>
       <script src="{{ asset('assets\js\vendor\modernizr-2.8.3.min.js') }}"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+        <script>
+        function showSuccessToast() {
+            toast({
+            title: "Thành công!",
+            message: "Đã thêm vào giỏ hàng.",
+            type: "success",
+            duration: 5000
+            });
+        }
+        function showErrorToast() {
+            toast({
+            title: "Thất bại!",
+            message: "Có lỗi xảy ra, vui lòng liên hệ quản trị viên.",
+            type: "error",
+            duration: 5000
+            });
+        }
+        $(document).ready(function(){
+            $.ajax({
+                    url:"{{ URL::to('cartChild') }}",
+                    method:"GET",
+                    data:{},
+                    success:function(data){     
+                        $('.shopping_cart').html(data);
+                    }
+                });
+
+            $(".add-to-cart").click(function(){
+                $.ajax({
+                    url:"{{ URL::to('addToCart') }}",
+                    method:"GET",
+                    data:{ masp:$(this).attr("masp") },
+                    success:function(data){  
+                        $.ajax({
+                            url:"{{ URL::to('cartChild') }}",
+                            method:"GET",
+                            data:{},
+                            success:function(data){     
+                                $('.shopping_cart').html(data);
+                            }
+                        });   
+                        showSuccessToast();
+                    }
+                });
+            });
+        })
+        </script>
   </head>
   <body>
     <!--pos page start-->
@@ -32,14 +84,18 @@
                                 <div class="header_links">
                                     <ul>
                                         <li><a href="{{ URL::to('/cart') }}" title="My cart"><i class="fa fa-shopping-cart"></i> Giỏ hàng</a></li>
+                                        @if(!Session::has('user'))
                                         <li><a href="{{ URL::to('/login') }}" title="Login">Đăng nhập</a></li>
+                                        @else
+                                        <li><a href="{{ URL::to('/logout') }}" title="Login">Đăng xuất</a></li>
+                                        @endif
                                     </ul>
                                 </div>   
                             </div>
                         </div> 
                     </div> 
-                    <!--header top end-->
-
+                    <!--header top end-->               
+                    <div id="toast"></div>
                     <!--header middel--> 
                     <div class="header_middel">
                         <div class="row align-items-center">
@@ -59,49 +115,7 @@
                                         </form>
                                     </div>
                                     <div class="shopping_cart">
-                                        <a href="#"><i class="fa fa-shopping-cart"></i> 2 sản phẩm - 209.000đ <i class="fa fa-angle-down"></i></a>
-
-                                        <!--mini cart-->
-                                        <div class="mini_cart">
-                                            <div class="cart_item">
-                                                <div class="cart_img">
-                                                    <a href="#"><img src="{{ asset('assets\img\cart\cart1.jpg') }}" alt="cart1"></a>
-                                                </div>
-                                                <div class="cart_info">
-                                                    <a href="#">Bộ Bàn Ghế Hiện Đại Mango</a>
-                                                    <span class="cart_price">3.800.000đ</span>
-                                                    <span class="quantity">Số lượng: 1</span>
-                                                </div>
-                                                <div class="cart_remove">
-                                                    <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="cart_item">
-                                                <div class="cart_img">
-                                                    <a href="#"><img src="{{ asset('assets\img\cart\cart2.jpg') }}" alt=""></a>
-                                                </div>
-                                                <div class="cart_info">
-                                                    <a href="#">Đèn Để Bàn Thân Gỗ Luxury</a>
-                                                    <span class="cart_price">425.000đ</span>
-                                                    <span class="quantity">Số lượng: 1</span>
-                                                </div>
-                                                <div class="cart_remove">
-                                                    <a title="Remove this item" href="#"><i class="fa fa-times-circle"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="shipping_price">
-                                                <span> Phí vận chuyển </span>
-                                                <span>  30.000đ  </span>
-                                            </div>
-                                            <div class="total_price">
-                                                <span> Tổng tiền thanh toán </span>
-                                                <span class="prices">  4.255.000đ </span>
-                                            </div>
-                                            <div class="cart_button">
-                                                <a href="checkout.html"> Kiểm tra</a>
-                                            </div>
-                                        </div>
-                                        <!--mini cart end-->
+            
                                     </div>
                                 </div>
                             </div>
@@ -121,13 +135,13 @@
                                                     <div class="mega_menu jewelry">
                                                         <div class="mega_items jewelry">
                                                           <ul>
-                                                              <li><a href="{{ URL::to('/shop') }}">Bàn ghế</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Tủ kệ</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Đèn</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Tranh</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Đồng hồ</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Gối sofa & Thảm</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Đồ trang trí khác</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/1') }}">Bàn ghế</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/2') }}">Tủ kệ</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/3') }}">Đèn</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/4') }}">Tranh</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/5') }}">Đồng hồ</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/6') }}">Gối sofa & Thảm</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/7') }}">Đồ trang trí khác</a></li>
                                                           </ul>
                                                         </div>
                                                     </div>  
@@ -146,13 +160,13 @@
                                                     <div>
                                                         <div>
                                                             <ul>
-                                                              <li><a href="{{ URL::to('/shop') }}">Bàn ghế</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Tủ kệ</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Đèn</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Tranh</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Đồng hồ</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Gối sofa & Thảm</a></li>
-                                                              <li><a href="{{ URL::to('/shop') }}">Đồ trang trí khác</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/1') }}">Bàn ghế</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/2') }}">Tủ kệ</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/3') }}">Đèn</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/4') }}">Tranh</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/5') }}">Đồng hồ</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/6') }}">Gối sofa & Thảm</a></li>
+                                                              <li><a href="{{ URL::to('/shopgroup/7') }}">Đồ trang trí khác</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>  

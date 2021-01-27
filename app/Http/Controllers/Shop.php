@@ -20,6 +20,12 @@ class Shop extends Controller
         }
     }
 
+    function getgroupsearch($id){
+        $data = sanpham::whereIn('loai', itemdanhmuc::whereIn('id_danhmuc', danhmuc::where('id', $id)->select('id')->get())->select('id')->get())->simplePaginate(8);
+        // return json_encode($data);
+        return view('client/Shop',['data' => $data]); 
+    }
+
     function getindex(){
         $data = sanpham::simplePaginate(8);
         return view('client/Shop',['data' => $data]); 

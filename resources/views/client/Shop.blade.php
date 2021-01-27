@@ -108,11 +108,11 @@
                                         <img src="{{ asset('assets\img\cart\span-new.png') }}" alt="span-new">
                                     </div>
                                     <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i>Thêm vào giỏ hàng</a>
+                                        <a href="#" class="add-to-cart" masp="{{ $valu->maSp }}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
+                                    <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100)) }} đ</span>
                                     <h3 class="product_title"><a href="{{  URL::to('/singerProduct') }}">{{ $valu->tenSp }}</a></h3>
                                 </div>
                                 <div class="product_info">
@@ -132,11 +132,11 @@
                                         <img src="{{ asset('assets\img\cart\span-hot.png') }}" alt="">
                                     </div>
                                     <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                        <a href="#" class="add-to-cart" masp="{{ $valu->maSp }}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
+                                    <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100)) }} đ</span>
                                     <h3 class="product_title"><a href='{{  URL::to("/singerProduct/$valu->maSp") }}'>{{ $valu->tenSp }}</a></h3>
                                 </div>
                                 <div class="product_info">
@@ -153,11 +153,11 @@
                                 <div class="product_thumb">
                                     <a href='{{  URL::to("/singerProduct/$valu->maSp") }}'><img src='{{ asset("assets/img/product/$valu->hinhAnh") }}' alt=""></a> 
                                     <div class="product_action">
-                                        <a href="#"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                        <a href="#" class="add-to-cart" masp="{{ $valu->maSp }}"> <i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
                                     </div>
                                 </div>
                                 <div class="product_content">
-                                    <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
+                                    <span class="product_price">{{ number_format(($valu->gia * (100 - $valu->giamGia)/100)) }} đ</span>
                                     <h3 class="product_title"><a href='{{  URL::to("/singerProduct/$valu->maSp") }}'>{{ $valu->tenSp }}</a></h3>
                                 </div>
                                 <div class="product_info">
@@ -206,7 +206,7 @@
                                         <label for="select">Select to compare</label>
                                     </p>
                                     <div class="content_price">
-                                        <span>{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
+                                        <span>{{ number_format(($valu->gia * (100 - $valu->giamGia)/100)) }} đ</span>
                                         @if($valu->giamGia > 0)
                                             <span class="old-price">{{ $valu->gia }}</span>
                                         @endif
@@ -255,7 +255,7 @@
                                         <label for="select">Select to compare</label>
                                     </p>
                                     <div class="content_price">
-                                        <span>{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
+                                        <span>{{ number_format(($valu->gia * (100 - $valu->giamGia)/100)) }} đ</span>
                                         @if($valu->giamGia > 0)
                                             <span class="old-price">{{ $valu->gia }}</span>
                                         @endif
@@ -301,7 +301,7 @@
                                         <label for="select">Select to compare</label>
                                     </p>
                                     <div class="content_price">
-                                        <span>{{ number_format(($valu->gia * (100 - $valu->giamGia)/100), 2) }} đ</span>
+                                        <span>{{ number_format(($valu->gia * (100 - $valu->giamGia)/100)) }} đ</span>
                                         @if($valu->giamGia > 0)
                                             <span class="old-price">{{ $valu->gia }}</span>
                                         @endif
