@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/home', function () {
     return view('client/Home');
 });
-
+// wwwww
 Route::get('/about', function () {
     return view('client/About');
 });
