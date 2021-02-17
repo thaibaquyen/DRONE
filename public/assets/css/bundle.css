@@ -320,9 +320,9 @@ textarea:focus {
         back-to-top
 *************************/
 #scrollUp {
-	background: #ea3a3c none repeat scroll 0 0;
+	background: #fff none repeat scroll 0 0;
 	bottom: 85px;
-	color: #ffffff;
+	color: #00bba6;
 	cursor: pointer;
 	display: none;
 	font-size: 20px;
@@ -334,12 +334,12 @@ textarea:focus {
 	width: 45px;
 	z-index: 9999;
 	border-radius: 50%;
-	border: 2px solid #fff;
+	border: 2px solid #00bba6;
 	-webkit-transition: .3s;
 	transition: .3s;
 }
 #scrollUp:hover {
-  border-color: #ea3a3c;
+  border-color: #00bba6;
 }
 
 /*************************

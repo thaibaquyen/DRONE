@@ -15,12 +15,10 @@
       <link rel="stylesheet" href="{{ asset('assets\css\bundle.css') }}">
       <link rel="stylesheet" href="{{ asset('assets\css\style.css') }}">
       <link rel="stylesheet" href="{{ asset('assets\css\responsive.css') }}">
-      <link rel="stylesheet" href="{{ asset('assets\css\toast.css') }}">
-      
+      <link rel="stylesheet" href="{{ asset('assets\css\toast.css') }}">     
       <script src="{{ asset('assets\js\toast.js') }}"></script>
       <script src="{{ asset('assets\js\vendor\modernizr-2.8.3.min.js') }}"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+
         <script>
         function showSuccessToast() {
             toast({
@@ -208,7 +206,7 @@
                             <h3>Thông tin</h3>
                             <ul>
                                 <li><a href="#">Về chúng tôi</a></li>
-                                <li><a href="#">Dịch vụ khách hàng</a></li>
+                                <li><a href="#">Hỗ trợ khách hàng</a></li>
                                 <li><a href="#">Điều khoản và điều kiện</a></li>
                                 <li><a href="#">Chính sách bảo mật</a></li>
                                 <li><a href="#">Thông tin giao hàng</a></li>
@@ -220,8 +218,8 @@
                             <h3>Liên hệ</h3>
                             <div class="footer_widget_contect">
                                 <p><i class="fa fa-map-marker" aria-hidden="true"></i> Thị trấn Trâu Quỳ, Huyện Gia Lâm, Hà Nội</p>
-                                <p><i class="fa fa-phone" aria-hidden="true"></i> 0327394455</p>
-                                <a href="#"><i class="fa fa-envelope-square" aria-hidden="true"></i> thaoao4@gmail.com </a>
+                                <p><i class="fa fa-phone" aria-hidden="true"></i> 0321112233</p>
+                                <a href="#"><i class="fa fa-envelope-square" aria-hidden="true"></i> drone@gmail.com </a>
                             </div>
                         </div>
                     </div>
