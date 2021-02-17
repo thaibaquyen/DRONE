@@ -42,14 +42,15 @@
             <div class="col-lg-6 col-md-6">
                 <div class="account_form">
                     <h2>Đăng nhập</h2>
-                    <form action="#">
+                    <form action="{{ URL::to('/loginuser') }}" method="POST">
+                    {{csrf_field()}}
                         <p>   
                             <label>Nhập địa chỉ email của bạn<span>*</span></label>
-                            <input type="email" id="login_email" required>
+                            <input type="email" id="login_email" name="emaillogin" required>
                         </p>
                         <p>   
                             <label>Mật khẩu <span>*</span></label>
-                            <input type="password" id="login_password" required>
+                            <input type="password" id="login_password" name="passwordlogin" required>
                         </p>   
                         <div class="login_submit">
                             <button type="submit">Đăng nhập</button>
@@ -68,22 +69,27 @@
             <div class="col-lg-6 col-md-6">
                 <div class="account_form register">
                     <h2>Đăng kí</h2>
-                    <form action="#">
+                    <form action="{{ URL::to('/register') }}" method="POST">
+                    {{csrf_field()}}
                         <p>   
                             <label>Họ và tên  <span>*</span></label>
-                            <input type="text" id="register_name" required>
+                            <input type="text" id="register_name" name="name" required>
                         </p>
                         <p>   
                             <label>Số điện thoại  <span>*</span></label>
-                            <input type="tel" id="register_tel" required>
+                            <input type="tel" id="register_tel" name="tel" required>
                         </p>
                         <p>   
                             <label>Nhập địa chỉ email của bạn  <span>*</span></label>
-                            <input type="email" id="register_email" required>
+                            <input type="email" id="register_email" name="email" required>
                         </p>
                         <p>   
                             <label>Mật khẩu <span>*</span></label>
-                            <input type="password" id="register_password" required>
+                            <input type="password" id="register_password" name="password" required>
+                        </p>
+                        <p>   
+                            <label>Địa chỉ <span>*</span></label>
+                            <input type="text" id="register_password" name="address" required>
                         </p>
                         <div class="login_submit">
                             <button type="submit">Đăng kí</button>

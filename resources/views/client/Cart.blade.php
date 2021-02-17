@@ -8,10 +8,43 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <!-- Favicon -->
       <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets\img\favicon.png') }}">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+        $(document).ready(function(){
+            $("input").change(function(){
+                var key = $(this).parents('tr').attr("key");
+                var sl = $(this).val();
+                $.ajax({
+                    url:"{{ URL::to('updateCart') }}",
+                    method:"GET",
+                    data:{ key: key, sl: sl },
+                    success:function(data){     
+                        location.reload(true);
+                    }
+                });
+            });
+
+            $(".remove_product").click(function(){
+                var key = $(this).parents('tr').attr("key");
+                $.ajax({
+                    url:"{{ URL::to('removeCart') }}",
+                    method:"GET",
+                    data:{ key: key },
+                    success:function(data){     
+                        location.reload(true);
+                    }
+                });
+            });
+        })
+        </script>
+
       <style>
         .header_links ul li:first-child a{
           color: #018576;
           font-weight: 700;
+        }
+        .fa {
+            font-family: 'FontAwesome' !important;
         }
       </style>
   </head>
@@ -55,30 +88,18 @@
                                   </tr>
                               </thead>
                               <tbody>
-                              <tr>
-                                  <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                  <td class="product_thumb"><a href="single-product.html"><img src="assets\img\product\product1.jpg" alt=""></a></td>
-                                  <td class="product_name"><a href="#">Bộ bàn ghế hiện đại Mango</a></td>
-                                  <td class="product-price">3.800.000đ</td>
-                                  <td class="product_quantity"><input min="0" max="100" value="1" type="number"></td>
-                                  <td class="product_total">3.800.000đ</td>
+                              @if (isset($data))
+                              @foreach($data as $key => $valu)
+                              <tr key="{{ $key }}">
+                                  <td class="product_remove remove_product"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                  <td class="product_thumb"><a href="single-product.html"><img src="{{ asset('assets/img/product/').'/'.$valu['img'] }}" alt=""></a></td>
+                                  <td class="product_name"><a href="#">{{ $valu['tenSp'] }}</a></td>
+                                  <td class="product-price">{{ number_format($valu['gia']) }}đ</td>
+                                  <td class="product_quantity"><input min="1" max="10" value="{{ $valu['sl'] }}" type="number"></td>
+                                  <td class="product_total">{{ number_format($valu['gia'] * $valu['sl']) }}đ</td>
                               </tr>
-                              <tr>
-                                  <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                  <td class="product_thumb"><a href="single-product.html"> <img src="assets\img\product\product2.jpg" alt=""></a></td>
-                                  <td class="product_name"><a href="#">Đèn để bàn thân gỗ Luxury</a></td>
-                                  <td class="product-price">425.000đ</td>
-                                  <td class="product_quantity"><input min="0" max="100" value="1" type="number"></td>
-                                  <td class="product_total">425.000đ</td>
-                              </tr>                                           
-                              <tr>
-                                  <td class="product_remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                  <td class="product_thumb"><a href="single-product.html"> <img src="assets\img\product\product3.jpg" alt=""></a></td>
-                                  <td class="product_name"><a href="#">Tủ đầu giường có khóa</a></td>
-                                  <td class="product-price">500.000đ</td>
-                                  <td class="product_quantity"><input min="0" max="100" value="1" type="number"></td>
-                                  <td class="product_total">500.000đ</td>
-                              </tr>
+                              @endforeach
+                              @endif
                               </tbody>
                           </table>   
                           </div>  
@@ -89,6 +110,7 @@
                   </div>
               </div>
               <!--coupon code area start-->
+              @if (isset($money))
               <div class="coupon_area">
                   <div class="row">
                       <div class="col-lg-12 col-md-12">
@@ -97,7 +119,7 @@
                               <div class="coupon_inner">
                                   <div class="cart_subtotal">
                                       <p>Tổng tiền hàng</p>
-                                      <p class="cart_amount">4.725.00đ</p>
+                                      <p class="cart_amount">{{ number_format($money) }}đ</p>
                                   </div>
                                   <div class="cart_subtotal ">
                                       <p>Phí vận chuyển</p>
@@ -107,16 +129,17 @@
 
                                   <div class="cart_subtotal">
                                       <p>Tổng tiền thanh toán</p>
-                                      <p class="cart_amount">4.755.000đ</p>
+                                      <p class="cart_amount">{{ number_format($money + 30000) }}đ</p>
                                   </div>
                                   <div class="checkout_btn">
-                                      <a href="#">Tiến hành kiểm tra</a>
+                                      <a href="{{ URL::to('/buy') }}">Tiến hành kiểm tra</a>
                                   </div>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
+              @endif
               <!--coupon code area end-->
           </form> 
   </div>
